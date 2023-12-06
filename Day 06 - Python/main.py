@@ -3,9 +3,9 @@ kerning = True
 
 
 class Race:
-    def __init__(self, time, distance):
+    def __init__(self, time, dist):
         self.time = time
-        self.distance = distance
+        self.distance = dist
 
 
 def extract_nums(line):
@@ -18,15 +18,12 @@ def extract_nums(line):
 if __name__ == '__main__':
     f = open(input_file)
     lines = f.readlines()
-    races = [Race(time, distance) for (time, distance) in zip(extract_nums(lines[0]), extract_nums(lines[1]))]
+    races = [Race(time, dist) for (time, dist) in zip(extract_nums(lines[0]), extract_nums(lines[1]))]
     total = 0
     for race in races:
-        ways_to_win = []
+        amount = 0
         for i in range(race.time):
-            time_left = race.time - i
-            meters = time_left * i
-            if meters > race.distance:
-                ways_to_win.append(i)
-        amount = len(ways_to_win)
+            if (race.time - i) * i > race.distance:
+                amount += 1
         total = amount if total == 0 else (total * amount)
     print(total)
