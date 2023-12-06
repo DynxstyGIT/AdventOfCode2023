@@ -2,28 +2,19 @@ input_file = "input.txt"
 kerning = True
 
 
-class Race:
-    def __init__(self, time, dist):
-        self.time = time
-        self.distance = dist
-
-
-def extract_nums(line):
+def ext_nums(line):
     line = line.replace('Time:', '').replace('Distance:', '')
-    if kerning:
-        line = line.replace(' ', '')
-    return [int(s) for s in line.split() if s.isdigit()]
+    return [int(s) for s in (line.replace(' ', '') if kerning else line).split() if s.isdigit()]
 
 
 if __name__ == '__main__':
     with open(input_file) as f:
         lines = f.readlines()
-        races = [Race(time, dist) for (time, dist) in zip(extract_nums(lines[0]), extract_nums(lines[1]))]
         total = 0
-        for race in races:
+        for (time, dist) in zip(ext_nums(lines[0]), ext_nums(lines[1])):
             amount = 0
-            for i in range(race.time):
-                if (race.time - i) * i > race.distance:
+            for i in range(time):
+                if (time - i) * i > dist:
                     amount += 1
             total = amount if total == 0 else (total * amount)
         print(total)
