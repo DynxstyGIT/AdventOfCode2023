@@ -16,14 +16,14 @@ def extract_nums(line):
 
 
 if __name__ == '__main__':
-    f = open(input_file)
-    lines = f.readlines()
-    races = [Race(time, dist) for (time, dist) in zip(extract_nums(lines[0]), extract_nums(lines[1]))]
-    total = 0
-    for race in races:
-        amount = 0
-        for i in range(race.time):
-            if (race.time - i) * i > race.distance:
-                amount += 1
-        total = amount if total == 0 else (total * amount)
-    print(total)
+    with open(input_file) as f:
+        lines = f.readlines()
+        races = [Race(time, dist) for (time, dist) in zip(extract_nums(lines[0]), extract_nums(lines[1]))]
+        total = 0
+        for race in races:
+            amount = 0
+            for i in range(race.time):
+                if (race.time - i) * i > race.distance:
+                    amount += 1
+            total = amount if total == 0 else (total * amount)
+        print(total)
