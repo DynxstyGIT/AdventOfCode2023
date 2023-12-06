@@ -1,5 +1,5 @@
 # AdventOfCode2023
-My solution for Advent of Code 2023!
+My solutions for Advent of Code 2023!
 
 ## Content
 * [Day 1 - Trebuchet?! (Kotlin)](https://github.com/DynxstyGIT/AdventOfCode2023/tree/master/Day%2001%20-%20Kotlin)
