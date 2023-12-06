@@ -1,4 +1,5 @@
-input_file = "input2.txt"
+input_file = "input.txt"
+kerning = True
 
 
 class Race:
@@ -8,6 +9,9 @@ class Race:
 
 
 def extract_nums(line):
+    line = line.replace('Time:', '').replace('Distance:', '')
+    if kerning:
+        line = line.replace(' ', '')
     return [int(s) for s in line.split() if s.isdigit()]
 
 
