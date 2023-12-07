@@ -8,3 +8,4 @@ My solutions for Advent of Code 2023!
 * [Day 4 - Scratchcards (Dart)](https://github.com/DynxstyGIT/AdventOfCode2023/tree/master/Day%2004%20-%20Dart)
 * [Day 5 - If You Give A Seed A Fertilizer (Java)](https://github.com/DynxstyGIT/AdventOfCode2023/tree/master/Day%2005%20-%20Java)
 * [Day 6 - Wait For It (Python)](https://github.com/DynxstyGIT/AdventOfCode2023/tree/master/Day%2006%20-%20Python)
+* [Day 7 - Camel Cards (Swift)](https://github.com/DynxstyGIT/AdventOfCode2023/tree/master/Day%2006%20-%20Python)
