@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"Jason Lessenich"
+	],
+	"copyright": "Copyright © 2023, Jason Dean Lessenich",
+	"description": "My solution for Advent of Code Day 8: Hautend Wasteland",
+	"license": "proprietary",
+	"name": "aoc2023_8"
+}
