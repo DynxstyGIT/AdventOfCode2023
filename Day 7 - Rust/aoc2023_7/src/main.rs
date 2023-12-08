@@ -30,6 +30,7 @@ fn camel_cards(bids: &mut Vec<(&str, u32)>, cards_order: &str) -> u32 {
             for i in 0..5 {
                 let card_a = hand_a.chars().nth(i).unwrap();
                 let card_b = hand_b.chars().nth(i).unwrap();
+                if card_a == card_b { continue };
                 return if cards_order.find(card_a) > cards_order.find(card_b) {
                     Ordering::Greater
                 } else {
@@ -42,7 +43,7 @@ fn camel_cards(bids: &mut Vec<(&str, u32)>, cards_order: &str) -> u32 {
     // calc total
     let mut total = 0;
     for (index, hand_and_bid) in bids.iter().enumerate() {
-        let amt = hand_and_bid.1.clone() * (index as u32 + 1);
+        let amt = hand_and_bid.1 * (index as u32 + 1);
         println!("{}: {} {} ({})", index + 1, hand_and_bid.0, hand_and_bid.1, amt);
         total += amt;
     }
