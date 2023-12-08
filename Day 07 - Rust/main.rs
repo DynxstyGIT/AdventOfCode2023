@@ -4,15 +4,30 @@ use std::fs;
 
 const INPUT: &str = "input.txt";
 
-pub fn check_deck_score(hand: String) -> u8 {
+fn check_deck_score(hand: String, wildcard: bool) -> u8 {
     let mut cards = HashMap::new();
     for c in hand.chars() {
         *cards.entry(c).or_insert(0) += 1
     }
+    if wildcard {
+        if let Some(c) = cards.get(&'J') {
+            let mut to_upgrade = '*';
+            let mut max_amt = 0;
+            // get card with highest amount
+            for (card, amt) in cards.iter() {
+                if *card != 'J' && *amt > max_amt {
+                    to_upgrade = *card;
+                    max_amt = *amt;
+                }
+            }
+            *cards.entry(to_upgrade).or_insert(0) += *c;
+            cards.remove(&'J');
+        }
+    }
     match cards.len() {
         1 => 7,
-        2 => if cards.values().any(|c| *c == 4) {6} else {5},
-        3 => if cards.values().any(|c| *c == 3) {4} else {3}
+        2 => if cards.values().any(|c| *c == 4) { 6 } else { 5 },
+        3 => if cards.values().any(|c| *c == 3) { 4 } else { 3 }
         4 => 2,
         5 => 1,
         _ => unimplemented!()
@@ -20,9 +35,10 @@ pub fn check_deck_score(hand: String) -> u8 {
 }
 
 fn camel_cards(bids: &mut Vec<(&str, u32)>, cards_order: &str) -> u32 {
+    let wildcard = cards_order.starts_with('J');
     bids.sort_by(|a, b| {
-        let score_a = check_deck_score(a.0.to_string());
-        let score_b = check_deck_score(b.0.to_string());
+        let score_a = check_deck_score(a.0.to_string(), wildcard);
+        let score_b = check_deck_score(b.0.to_string(), wildcard);
         // check card order
         if score_a == score_b {
             let hand_a = a.0.to_string();
@@ -43,9 +59,7 @@ fn camel_cards(bids: &mut Vec<(&str, u32)>, cards_order: &str) -> u32 {
     // calc total
     let mut total = 0;
     for (index, hand_and_bid) in bids.iter().enumerate() {
-        let amt = hand_and_bid.1 * (index as u32 + 1);
-        println!("{}: {} {} ({})", index + 1, hand_and_bid.0, hand_and_bid.1, amt);
-        total += amt;
+        total += hand_and_bid.1 * (index as u32 + 1);
     }
     total
 }
@@ -60,6 +74,6 @@ fn main() {
         let (hand, bid_raw) = line.split_once(" ").unwrap();
         bids.push((hand, bid_raw.parse::<u32>().unwrap()))
     }
-    let part1: u32 = camel_cards(&mut bids, "23456789TJQKA");
-    println!("Part 1: {}", part1);
+    println!("Part 1: {}", camel_cards(&mut bids, "23456789TJQKA"));
+    println!("Part 2: {}", camel_cards(&mut bids, "J23456789TQKA"));
 }
