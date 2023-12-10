@@ -1,6 +1,9 @@
 class Input < Struct.new(:instructions, :nodes)
 end
 class Node < Struct.new(:name, :left, :right)
+  def to_s
+    "#{name}: (#{left}, #{right})"
+  end
 end
 
 def read_input(file_name)

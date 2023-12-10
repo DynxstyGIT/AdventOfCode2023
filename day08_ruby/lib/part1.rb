@@ -1,6 +1,6 @@
 require_relative 'model'
 
-input = read_input("test_input1.txt")
+input = read_input("input.txt")
 instructions = input.instructions
 nodes = input.nodes
 
